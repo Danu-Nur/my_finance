@@ -17,3 +17,9 @@ const List widgetTitles = [
   'Top Up',
   'Buy',
 ];
+const List widgetOnTabs = [
+  0,
+  1,
+  2,
+  3,
+];
