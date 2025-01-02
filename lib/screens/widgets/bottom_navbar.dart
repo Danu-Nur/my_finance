@@ -80,10 +80,6 @@ class HomeFooter extends StatelessWidget {
       Icons.wallet_rounded,
       Icons.history,
       Icons.settings,
-      // CupertinoIcons.home,
-      // CupertinoIcons.creditcard,
-      // CupertinoIcons.money_dollar,
-      // CupertinoIcons.person,
     ];
 
     return BlocBuilder<NavBarBloc, NavBarState>(
