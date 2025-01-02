@@ -19,6 +19,9 @@ class _HistoryScreenState extends State<HistoryScreen> {
     return SafeArea(
       child: Scaffold(
         body: Container(
+          decoration: const BoxDecoration(
+            color: primaryColor,
+          ),
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
           child: Column(
             children: [
