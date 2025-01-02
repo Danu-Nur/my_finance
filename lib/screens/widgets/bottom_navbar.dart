@@ -9,6 +9,7 @@ import 'package:my_finance/screens/features/dashboard/dashboard_screen.dart';
 import 'package:my_finance/screens/features/budget/budget_screen.dart';
 import 'package:my_finance/screens/features/history/history_screen.dart';
 import 'package:my_finance/screens/features/setting/setting_screen.dart';
+import 'package:my_finance/screens/features/data_master/data_master_screen.dart';
 // import 'package:my_finance/screens/daily_page.dart';
 // import 'package:my_finance/screens/transection_page.dart';
 import 'package:my_finance/utils/color.dart';
@@ -58,7 +59,8 @@ class HomeBody extends StatelessWidget {
           const DashboardScreen(),
           const BudgetScreen(),
           const HistoryScreen(),
-          const SettingScreen(),
+          // const SettingScreen(),
+          const DataMasterScreen(),
         ];
 
         return IndexedStack(
@@ -79,7 +81,7 @@ class HomeFooter extends StatelessWidget {
       Icons.home,
       Icons.wallet_rounded,
       Icons.history,
-      Icons.settings,
+      Icons.storage,
     ];
 
     return BlocBuilder<NavBarBloc, NavBarState>(
