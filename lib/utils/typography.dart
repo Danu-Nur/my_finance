@@ -49,7 +49,7 @@ final poppinsBody1 = GoogleFonts.poppins(
 );
 
 final poppinsBody2 = GoogleFonts.poppins(
-  fontSize: 14,
+  fontSize: 12,
   fontWeight: FontWeight.w400,
 );
 
