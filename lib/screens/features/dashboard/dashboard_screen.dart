@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
+import 'package:my_finance/blocs/navbar/navbar_bloc.dart';
+import 'package:my_finance/blocs/navbar/navbar_event.dart';
 import 'package:my_finance/common/gap.dart';
 import 'package:my_finance/common/static.dart';
 import 'package:my_finance/data/model/saving_target_model.dart';
@@ -7,6 +10,7 @@ import 'package:my_finance/data/model/transaction_model.dart';
 import 'package:my_finance/data/repository/repository.dart';
 import 'package:my_finance/utils/color.dart';
 import 'package:my_finance/utils/typography.dart';
+import 'package:my_finance/screens/features/history/history_screen.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 
 class DashboardScreen extends StatefulWidget {
@@ -85,7 +89,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
               ],
             ),
             InkWell(
-              onTap: () {},
+              onTap: () {
+                context.read<NavBarBloc>().add(ChangeTabIndex(2));
+              },
               child: const Icon(
                 Icons.arrow_circle_right,
                 color: textColor,
@@ -701,7 +707,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
             ],
           ),
           InkWell(
-            onTap: () {},
+            onTap: () {
+              context.read<NavBarBloc>().add(ChangeTabIndex(3));
+            },
             child: Container(
               width: 50,
               height: 50,
