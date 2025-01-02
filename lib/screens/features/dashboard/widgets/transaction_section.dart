@@ -77,47 +77,65 @@ Widget transactionSection(BuildContext context) {
                                   height: 60,
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(40),
-                                    color: primaryColor,
-                                    image: DecorationImage(
-                                      image: NetworkImage(
-                                        data[index].photoUrl,
-                                      ),
-                                      fit: BoxFit.cover,
-                                    ),
+                                    color: data[index].status == true
+                                        ? Colors.green
+                                        : Colors.red,
+                                    // color: primaryColor,
+                                    // image: DecorationImage(
+                                    //   image: NetworkImage(
+                                    //     data[index].photoUrl,
+                                    //   ),
+                                    //   fit: BoxFit.cover,
+                                    // ),
+                                  ),
+                                  child: Icon(
+                                    data[index].status == false
+                                        ? Icons.arrow_upward_rounded
+                                        : Icons.arrow_downward_rounded,
+                                    color: textColor,
+                                    size: 40,
                                   ),
                                 ),
-                                Positioned(
-                                  bottom: 0,
-                                  right: 0,
-                                  child: Container(
-                                    width: 20,
-                                    height: 20,
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(40),
-                                      color: data[index].status == true
-                                          ? Colors.green
-                                          : Colors.red,
-                                    ),
-                                    child: Icon(
-                                      data[index].status == false
-                                          ? Icons.arrow_upward_rounded
-                                          : Icons.arrow_downward_rounded,
-                                      color: textColor,
-                                      size: 16,
-                                    ),
-                                  ),
-                                ),
+                                // Positioned(
+                                //   bottom: 0,
+                                //   right: 0,
+                                //   child: Container(
+                                //     width: 20,
+                                //     height: 20,
+                                //     decoration: BoxDecoration(
+                                //       borderRadius: BorderRadius.circular(40),
+                                //       color: data[index].status == true
+                                //           ? Colors.green
+                                //           : Colors.red,
+                                //     ),
+                                //     child: Icon(
+                                //       data[index].status == false
+                                //           ? Icons.arrow_upward_rounded
+                                //           : Icons.arrow_downward_rounded,
+                                //       color: textColor,
+                                //       size: 16,
+                                //     ),
+                                //   ),
+                                // ),
                               ],
                             ),
-                            const HorizontalGap10(),
+                            const HorizontalGap20(),
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  data[index].name,
-                                  style: poppinsBody1.copyWith(
-                                    color: textColor,
+                                  data[index].status == false
+                                      ? '- \$${data[index].totalMoney}'
+                                      : '+ \$${data[index].totalMoney}',
+                                  style: poppinsH3.copyWith(
+                                    color: data[index].status == false
+                                        ? Colors.red
+                                        : Colors.green,
                                   ),
+                                  // data[index].name,
+                                  // style: poppinsBody1.copyWith(
+                                  //   color: textColor,
+                                  // ),
                                 ),
                                 Text(
                                   '${data[index].dateTransfer}, ${data[index].timeTransfer}',
@@ -129,20 +147,20 @@ Widget transactionSection(BuildContext context) {
                             ),
                           ],
                         ),
-                        Row(
-                          children: [
-                            Text(
-                              data[index].status == false
-                                  ? '- \$${data[index].totalMoney}'
-                                  : '+ \$${data[index].totalMoney}',
-                              style: poppinsH3.copyWith(
-                                color: data[index].status == false
-                                    ? Colors.red
-                                    : Colors.green,
-                              ),
-                            ),
-                          ],
-                        ),
+                        // Row(
+                        //   children: [
+                        //     Text(
+                        //       data[index].status == false
+                        //           ? '- \$${data[index].totalMoney}'
+                        //           : '+ \$${data[index].totalMoney}',
+                        //       style: poppinsH3.copyWith(
+                        //         color: data[index].status == false
+                        //             ? Colors.red
+                        //             : Colors.green,
+                        //       ),
+                        //     ),
+                        //   ],
+                        // ),
                       ],
                     ),
                   );
