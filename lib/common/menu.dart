@@ -10,6 +10,7 @@ class Menu {
     'Budget',
     'Inventory',
     'Assets',
+    'Settings',
   ];
   static const List widgetDesc = [
     'List of bank',
@@ -20,6 +21,7 @@ class Menu {
     'List of budget',
     'List of inventory',
     'List of assets',
+    'App Settings',
   ];
   static const List widgetOnTabs = [
     0,
@@ -30,6 +32,7 @@ class Menu {
     5,
     6,
     7,
+    8,
   ];
   static const List widgetIconsMenu = [
     Icons.account_balance,
@@ -40,5 +43,6 @@ class Menu {
     Icons.attach_money,
     Icons.inventory_2,
     Icons.business_center,
+    Icons.settings,
   ];
 }
