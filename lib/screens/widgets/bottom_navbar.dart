@@ -25,19 +25,19 @@ class BottomNavbar extends StatelessWidget {
         backgroundColor: primaryColor,
         body: const HomeBody(),
         bottomNavigationBar: const HomeFooter(),
-        floatingActionButton: SafeArea(
-          child: SizedBox(
-            child: FloatingActionButton(
-              onPressed: () {},
-              backgroundColor: buttonColor,
-              child: const Icon(
-                Icons.add,
-                size: 20,
-              ),
-            ),
-          ),
-        ),
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+        // floatingActionButton: SafeArea(
+        //   child: SizedBox(
+        //     child: FloatingActionButton(
+        //       onPressed: () {},
+        //       backgroundColor: buttonColor,
+        //       child: const Icon(
+        //         Icons.add,
+        //         size: 20,
+        //       ),
+        //     ),
+        //   ),
+        // ),
+        // floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
       ),
     );
   }
@@ -56,10 +56,10 @@ class HomeBody extends StatelessWidget {
         }
 
         List<Widget> pages = [
-          const DashboardScreen(),
+          DashboardScreen(),
           const BudgetScreen(),
           const HistoryScreen(),
-          // const SettingScreen(),
+          const SettingScreen(),
           const DataMasterScreen(),
         ];
 
@@ -81,6 +81,7 @@ class HomeFooter extends StatelessWidget {
       Icons.home,
       Icons.wallet_rounded,
       Icons.history,
+      Icons.inventory_2,
       Icons.storage,
     ];
 
@@ -92,12 +93,12 @@ class HomeFooter extends StatelessWidget {
         }
 
         return AnimatedBottomNavigationBar(
-          backgroundColor: secondaryColor.withOpacity(0.5),
+          backgroundColor: Colors.pink.withOpacity(0.5),
           icons: iconItems,
           splashColor: buttonColor,
           inactiveColor: textColor,
           activeColor: buttonColor,
-          gapLocation: GapLocation.center,
+          gapLocation: GapLocation.none,
           activeIndex: currentIndex,
           notchSmoothness: NotchSmoothness.softEdge,
           leftCornerRadius: 10,
