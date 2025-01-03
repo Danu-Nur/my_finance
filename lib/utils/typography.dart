@@ -4,17 +4,17 @@ import 'package:google_fonts/google_fonts.dart';
 
 
 final poppinsH1 = GoogleFonts.poppins(
-  fontSize: 24,
-  fontWeight: FontWeight.w700,
-);
-
-final poppinsH2 = GoogleFonts.poppins(
   fontSize: 20,
   fontWeight: FontWeight.w700,
 );
 
-final poppinsH3 = GoogleFonts.poppins(
+final poppinsH2 = GoogleFonts.poppins(
   fontSize: 18,
+  fontWeight: FontWeight.w700,
+);
+
+final poppinsH3 = GoogleFonts.poppins(
+  fontSize: 17,
   fontWeight: FontWeight.w700,
 );
 
