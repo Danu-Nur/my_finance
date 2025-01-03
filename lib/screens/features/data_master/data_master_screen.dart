@@ -27,7 +27,8 @@ class _DataMasterScreenState extends State<DataMasterScreen> {
           child: Column(
             children: [
               const VerticalGap10(),
-              const VerticalGap10(),
+              headerSection(),
+              const VerticalGap20(),
               Expanded(
                 child: ListView.separated(
                   separatorBuilder: (context, index) => const VerticalGap10(),
@@ -54,8 +55,8 @@ class _DataMasterScreenState extends State<DataMasterScreen> {
                                 Stack(
                                   children: [
                                     Container(
-                                      width: 50,
-                                      height: 50,
+                                      width: 40,
+                                      height: 40,
                                       decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(40),
                                         color: buttonColor,
@@ -104,6 +105,23 @@ class _DataMasterScreenState extends State<DataMasterScreen> {
           ),
         ),
       ),
+    );
+  }
+
+  Row headerSection() {
+    return Row(
+      children: [
+        const Icon(
+          Icons.storage_sharp,
+          size: 26,
+          color: textColor,
+        ),
+        const HorizontalGap5(),
+        Text(
+          'Data Master & Settings',
+          style: poppinsH1.copyWith(color: textColor),
+        ),
+      ],
     );
   }
 }
