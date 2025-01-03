@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-// import 'package:flutter/widgets.dart';
 import 'package:my_finance/common/gap.dart';
 import 'package:my_finance/data/repository/repository.dart';
+import 'package:my_finance/screens/widgets/dynamic_F_A_B.dart';
+import 'package:my_finance/screens/features/data_master/data_master_screen.dart';
 import 'package:my_finance/utils/color.dart';
 import 'package:my_finance/utils/typography.dart';
 
@@ -14,6 +15,7 @@ class HistoryScreen extends StatefulWidget {
 }
 
 class _HistoryScreenState extends State<HistoryScreen> {
+  Color fabColor = Colors.green;
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -31,123 +33,100 @@ class _HistoryScreenState extends State<HistoryScreen> {
             ],
           ),
         ),
+        floatingActionButton: DynamicFAB(
+          addDataPage: DataMasterScreen(), // Halaman tujuan
+          fabColor: fabColor, // Warna dinamis
+        ),
       ),
     );
   }
 
   Expanded transactionSection() {
     return Expanded(
-      child: FutureBuilder(
-        future: Repository().getTransaction(),
-        builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            return ListView.separated(
-              separatorBuilder: (context, index) => const VerticalGap10(),
-              itemCount: snapshot.data!.length,
-              itemBuilder: (context, index) {
-                final data = snapshot.data;
-                return Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    color: secondaryColor,
-                  ),
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 16,
-                    vertical: 8,
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Row(
-                        children: [
-                          Stack(
-                            children: [
-                              Container(
-                                width: 60,
-                                height: 60,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(40),
-                                  color: primaryColor,
-                                  image: DecorationImage(
-                                    image: NetworkImage(
-                                      data![index].photoUrl,
-                                    ),
-                                    fit: BoxFit.cover,
-                                  ),
-                                ),
+        child: FutureBuilder(
+      future: Repository().getTransaction(),
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          final data = snapshot.data;
+          return ListView.separated(
+            separatorBuilder: (context, index) => const VerticalGap10(),
+            itemCount: data!.length,
+            itemBuilder: (context, index) {
+              return Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  color: secondaryColor,
+                ),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 16,
+                  vertical: 8,
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Row(
+                      children: [
+                        Stack(
+                          children: [
+                            Container(
+                              width: 60,
+                              height: 60,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(40),
+                                color: data[index].status == true
+                                    ? Colors.green
+                                    : Colors.red,
                               ),
-                              Positioned(
-                                bottom: 0,
-                                right: 0,
-                                child: Container(
-                                  width: 20,
-                                  height: 20,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(40),
-                                    color: data[index].status == true
-                                        ? Colors.green
-                                        : Colors.red,
-                                  ),
-                                  child: Icon(
-                                    data[index].status == false
-                                        ? Icons.arrow_upward_rounded
-                                        : Icons.arrow_downward_rounded,
-                                    color: textColor,
-                                    size: 16,
-                                  ),
-                                ),
-                              )
-                            ],
-                          ),
-                          const HorizontalGap10(),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                data[index].name,
-                                style: poppinsBody1.copyWith(
-                                  color: textColor,
-                                ),
+                              child: Icon(
+                                data[index].status == false
+                                    ? Icons.arrow_upward_rounded
+                                    : Icons.arrow_downward_rounded,
+                                color: textColor,
+                                size: 40,
                               ),
-                              Text(
-                                '${data[index].dateTransfer}, ${data[index].timeTransfer}',
-                                style: poppinsCaption.copyWith(
-                                  color: textColor.withOpacity(.75),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                      Row(
-                        children: [
-                          Text(
-                            data[index].status == false
-                                ? '- \$${data[index].totalMoney}'
-                                : '+ \$${data[index].totalMoney}',
-                            style: poppinsH3.copyWith(
-                              color: data[index].status == false
-                                  ? Colors.red
-                                  : Colors.green,
                             ),
-                          ),
-                        ],
-                      )
-                    ],
-                  ),
-                );
-              },
-            );
-          } else if (snapshot.hasError) {
-            return Text(snapshot.error.toString());
-          } else {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          }
-        },
-      ),
-    );
+                          ],
+                        ),
+                        const HorizontalGap20(),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              data[index].status == false
+                                  ? '- \$${data[index].totalMoney}'
+                                  : '+ \$${data[index].totalMoney}',
+                              style: poppinsH3.copyWith(
+                                color: data[index].status == false
+                                    ? Colors.red
+                                    : Colors.green,
+                              ),
+                            ),
+                            Text(
+                              '${data[index].dateTransfer}, ${data[index].timeTransfer}',
+                              style: poppinsCaption.copyWith(
+                                color: textColor.withOpacity(.75),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              );
+            },
+          );
+        } else if (snapshot.hasError) {
+          return Text('${snapshot.error}');
+        } else {
+          return const Center(
+            child: CircularProgressIndicator(
+              color: buttonColor,
+            ),
+          );
+        }
+      },
+    ));
   }
 
   Row headerSection() {
