@@ -44,12 +44,23 @@ class _BalanceSectionState extends State<BalanceSection> {
             loadMoreBalance(),
           ],
         ),
-        const VerticalGap10(),
-        CardBalance(children: [totalIncome()]),
-        const VerticalGap10(),
-        CardBalance(children: [totalExpense()]),
-        const VerticalGap10(),
-        CardBalance(children: [totalAsset()]),
+        // const VerticalGap10(),
+        // CardBalance(children: [totalIncome()]),
+        // const VerticalGap10(),
+        // CardBalance(children: [totalExpense()]),
+        // const VerticalGap10(),
+        // CardBalance(children: [totalAsset()]),
+      ],
+    );
+  }
+
+  Widget totalBalance() {
+    return Column(
+      children: [
+        _viewBalance(
+            'Total Balance',
+            _isHidden ? rupiahFormatter.format(23000000000) : '---------',
+            buttonColor)
       ],
     );
   }
@@ -69,62 +80,56 @@ class _BalanceSectionState extends State<BalanceSection> {
             color: textColor.withOpacity(.25),
           ),
           const VerticalGap10(),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                'Investation (0,00%)',
-                style: poppinsH5.copyWith(
-                  color: textColor.withOpacity(.75),
-                ),
-              ),
-              Text(
-                'Rp 0',
-                style: poppinsH5.copyWith(
-                  color: textColor.withOpacity(.75),
-                ),
-              ),
-            ],
-          ),
-          const VerticalGap5(),
-          _buildItemRow('Reksa Dana Bibit', 'Rp 0', imgBibit),
+          // Row(
+          //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          //   children: [
+          //     Text(
+          //       'Investation (0,00%)',
+          //       style: poppinsH5.copyWith(
+          //         color: textColor.withOpacity(.75),
+          //       ),
+          //     ),
+          //     Text(
+          //       'Rp 0',
+          //       style: poppinsH5.copyWith(
+          //         color: textColor.withOpacity(.75),
+          //       ),
+          //     ),
+          //   ],
+          // ),
+          _buildItemLoadMore('Income', 20000000000, Icons.arrow_upward_sharp, Colors.green),
           const VerticalGap10(),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                'Cash Money (100,00%)',
-                style: poppinsH5.copyWith(
-                  color: textColor.withOpacity(.75),
-                ),
-              ),
-              Text(
-                '\$550,752,210',
-                style: poppinsH5.copyWith(
-                  color: textColor.withOpacity(.75),
-                ),
-              ),
-            ],
-          ),
-          const VerticalGap5(),
-          _buildItemRow('Saving Pocket', 'Rp 0', imgProfile),
-          const VerticalGap5(),
-          _buildItemRow('Payment Pocket', '\$550,752,210', imgProfile),
-          const VerticalGap5(),
-          _buildItemRow('Gopay', 'Rp 0', imgGopay),
+          _buildItemLoadMore('Expense', 2300000000, Icons.arrow_downward_sharp, Colors.red),
+          const VerticalGap10(),
+          _buildItemLoadMore('Assets', 3000000000, Icons.business_center_sharp, Colors.blue),
+          const VerticalGap10(),
+          // _buildItemRow('Reksa Dana Bibit', 'Rp 0', imgBibit),
+          // const VerticalGap10(),
+          // Row(
+          //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          //   children: [
+          //     Text(
+          //       'Cash Money (100,00%)',
+          //       style: poppinsH5.copyWith(
+          //         color: textColor.withOpacity(.75),
+          //       ),
+          //     ),
+          //     Text(
+          //       '\$550,752,210',
+          //       style: poppinsH5.copyWith(
+          //         color: textColor.withOpacity(.75),
+          //       ),
+          //     ),
+          //   ],
+          // ),
+          // const VerticalGap5(),
+          // _buildItemRow('Saving Pocket', 'Rp 0', imgProfile),
+          // const VerticalGap5(),
+          // _buildItemRow('Payment Pocket', '\$550,752,210', imgProfile),
+          // const VerticalGap5(),
+          // _buildItemRow('Gopay', 'Rp 0', imgGopay),
         ],
       ),
-    );
-  }
-
-  Widget totalBalance() {
-    return Column(
-      children: [
-        _viewBalance(
-            'Total Balance',
-            _isHidden ? rupiahFormatter.format(1000000000) : '---------',
-            buttonColor)
-      ],
     );
   }
 
@@ -166,22 +171,8 @@ class _BalanceSectionState extends State<BalanceSection> {
             ),
             Row(
               children: [
-                if (title == 'Total Balance')
-                  InkWell(
-                    onTap: () {
-                      setState(() {
-                        _isHidden = !_isHidden;
-                      });
-                    },
-                    child: Icon(
-                      _isHidden
-                          ? Icons.visibility_rounded
-                          : Icons.visibility_off_rounded,
-                      color: textColor.withOpacity(.75),
-                      size: 20,
-                    ),
-                  ),
-                  const HorizontalGap5(),
+                
+                const HorizontalGap5(),
                 if (title == 'Total Balance')
                   InkWell(
                     onTap: () {
@@ -200,7 +191,7 @@ class _BalanceSectionState extends State<BalanceSection> {
         ),
         // const SizedBox(height: 8), // Jarak antar elemen
         Row(
-          mainAxisAlignment: MainAxisAlignment.end,
+          // mainAxisAlignment: MainAxisAlignment.end,
           children: [
             Text(
               amount, // Sembunyikan atau tampilkan jumlah
@@ -209,6 +200,22 @@ class _BalanceSectionState extends State<BalanceSection> {
                 fontWeight: FontWeight.w600,
               ),
             ),
+            const SizedBox(width: 10),
+            if (title == 'Total Balance')
+                  InkWell(
+                    onTap: () {
+                      setState(() {
+                        _isHidden = !_isHidden;
+                      });
+                    },
+                    child: Icon(
+                      _isHidden
+                          ? Icons.visibility_rounded
+                          : Icons.visibility_off_rounded,
+                      color: textColor.withOpacity(.75),
+                      size: 20,
+                    ),
+                  ),
             // const SizedBox(width: 40), // Jarak antar elemen horizontal
           ],
         ),
@@ -248,6 +255,44 @@ class _BalanceSectionState extends State<BalanceSection> {
           style: poppinsBody2.copyWith(
             color: textColor.withOpacity(.75),
           ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildItemLoadMore(String title, int amount, IconData icon, Color bgColor) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Row(
+          children: [
+            Container(
+              width: 23,
+              height: 23,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(40),
+                color: bgColor,
+              ),
+              child: Icon(
+                icon,
+                size: 16,
+                color: textColor.withOpacity(.75), // Tambahkan warna ikon
+              ),
+            ),
+            const SizedBox(width: 5), // Ganti HorizontalGap5 dengan SizedBox
+            Text(
+              title,
+              style: poppinsH6.copyWith(
+                  color: textColor.withOpacity(.75),
+                ),
+            ),
+          ],
+        ),
+        Text(
+          rupiahFormatter.format(amount), // Tambahkan formatter
+          style: poppinsH5.copyWith(
+                  color: bgColor.withOpacity(.90),
+                ),
         ),
       ],
     );
