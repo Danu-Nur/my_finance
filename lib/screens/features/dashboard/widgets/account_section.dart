@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:intl/intl.dart';
 import 'package:my_finance/blocs/navbar/navbar_bloc.dart';
 import 'package:my_finance/blocs/navbar/navbar_event.dart';
 import 'package:my_finance/common/gap.dart';
@@ -8,6 +7,7 @@ import 'package:my_finance/data/model/saving_target_model.dart';
 import 'package:my_finance/data/repository/repository.dart';
 import 'package:my_finance/utils/color.dart';
 import 'package:my_finance/utils/typography.dart';
+import 'package:my_finance/utils/formatters.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 
 Widget accountSection(BuildContext context) {
@@ -62,10 +62,9 @@ Widget accountSection(BuildContext context) {
                   separatorBuilder: (context, index) => const HorizontalGap10(),
                   itemCount: data!.length,
                   itemBuilder: (context, index) {
-                    final formatter = NumberFormat('#,###');
-                    final savingValue = formatter.format(data[index].hasSaving);
+                    final savingValue = rupiahFormatter.format(data[index].hasSaving);
                     final targetValue =
-                        formatter.format(data[index].totalSaving);
+                        rupiahFormatter.format(data[index].totalSaving);
                     return InkWell(
                         onTap: () {
                           context.read<NavBarBloc>().add(ChangeTabIndex(1));
@@ -98,7 +97,7 @@ Widget accountSection(BuildContext context) {
                                   ),
                                   const VerticalGap5(),
                                   Text(
-                                    '\$$savingValue',
+                                    '$savingValue',
                                     style: poppinsBody1.copyWith(
                                       fontSize: 28,
                                       color: buttonColor,
@@ -106,7 +105,7 @@ Widget accountSection(BuildContext context) {
                                   ),
                                   const VerticalGap5(),
                                   Text(
-                                    '\$$targetValue left in ${data[index].monthDuration} months',
+                                    '$targetValue left in ${data[index].monthDuration} months',
                                     style: poppinsBody2.copyWith(
                                       color: textColor.withOpacity(.5),
                                     ),
