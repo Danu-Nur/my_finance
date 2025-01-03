@@ -18,6 +18,9 @@ class _SettingScreenState extends State<SettingScreen> {
     return SafeArea(
       child: Scaffold(
         body: Container(
+          decoration: const BoxDecoration(
+            color: primaryColor,
+          ),
           padding: const EdgeInsets.symmetric(horizontal: 16),
           child: Column(
             children: [
@@ -77,7 +80,7 @@ class _SettingScreenState extends State<SettingScreen> {
               padding: const EdgeInsets.all(8),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(8),
-                color: primaryColor,
+                color: secondaryColor,
               ),
               child: const Icon(
                 Icons.edit,
