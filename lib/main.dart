@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:my_finance/screens/splash/splash_screen.dart';
+// import 'package:my_finance/screens/splash/splash_screen.dart';
 // import 'package:my_finance/screens/login/login_screen.dart';
 // import 'package:my_finance/screens/signup/signup_screen.dart';
 // import 'package:my_finance/screens/features/dashboard/dashboard_screen.dart';
+import 'package:my_finance/screens/widgets/bottom_navbar.dart';
 import 'package:my_finance/utils/color.dart';
 
 void main() {
@@ -20,10 +21,10 @@ class MyApp extends StatelessWidget {
         canvasColor: secondaryColor,
         scaffoldBackgroundColor: secondaryColor,
       ),
-      home: const SplashScreen(),
+      // home: const SplashScreen(),
       // home: const LoginScreen(),
       // home: SignupScreen(),
-      // home: const DashboardScreen(),
+      home: const BottomNavbar(),
     );
   }
 }

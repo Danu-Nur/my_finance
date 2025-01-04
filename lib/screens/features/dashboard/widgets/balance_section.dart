@@ -183,6 +183,7 @@ class _BalanceSectionState extends State<BalanceSection> {
                     child: Icon(
                       Icons.info_outline_rounded,
                       color: textColor.withOpacity(.75),
+                      size: 20,
                     ),
                   ),
               ],
@@ -191,7 +192,7 @@ class _BalanceSectionState extends State<BalanceSection> {
         ),
         // const SizedBox(height: 8), // Jarak antar elemen
         Row(
-          // mainAxisAlignment: MainAxisAlignment.end,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
               amount, // Sembunyikan atau tampilkan jumlah
@@ -200,7 +201,7 @@ class _BalanceSectionState extends State<BalanceSection> {
                 fontWeight: FontWeight.w600,
               ),
             ),
-            const SizedBox(width: 10),
+            // const SizedBox(width: 10),
             if (title == 'Total Balance')
                   InkWell(
                     onTap: () {
@@ -218,7 +219,7 @@ class _BalanceSectionState extends State<BalanceSection> {
                   ),
             // const SizedBox(width: 40), // Jarak antar elemen horizontal
           ],
-        ),
+        ),// Jarak antar elemen
       ],
     );
   }

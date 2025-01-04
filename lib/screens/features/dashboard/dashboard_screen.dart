@@ -6,6 +6,7 @@ import 'package:my_finance/screens/features/dashboard/widgets/payment_section.da
 import 'package:my_finance/screens/features/dashboard/widgets/account_section.dart';
 import 'package:my_finance/screens/features/dashboard/widgets/saving_target_section.dart';
 import 'package:my_finance/screens/features/dashboard/widgets/transaction_section.dart';
+import 'package:my_finance/screens/features/dashboard/widgets/daily_section.dart';
 
 class DashboardScreen extends StatefulWidget {
   const DashboardScreen({super.key});
@@ -51,7 +52,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
               const VerticalGap20(),
               savingTargetSection(context),
               const VerticalGap20(),
-              transactionSection(context),
+              DailySection(),
+              // transactionSection(context),
             ],
           ),
         ),
