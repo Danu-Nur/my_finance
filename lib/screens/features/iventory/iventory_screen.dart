@@ -43,89 +43,90 @@ class _IventoryScreenState extends State<IventoryScreen> {
 
   Expanded transactionSection() {
     return Expanded(
-        child: FutureBuilder(
-      future: Repository().getTransaction(),
-      builder: (context, snapshot) {
-        if (snapshot.hasData) {
-          final data = snapshot.data;
-          return ListView.separated(
-            separatorBuilder: (context, index) => const VerticalGap10(),
-            itemCount: data!.length,
-            itemBuilder: (context, index) {
-              return Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  color: secondaryColor,
-                ),
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 16,
-                  vertical: 8,
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Row(
-                      children: [
-                        Stack(
-                          children: [
-                            Container(
-                              width: 60,
-                              height: 60,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(40),
-                                color: data[index].status == true
-                                    ? Colors.green
-                                    : Colors.red,
+      child: FutureBuilder(
+        future: Repository().getTransaction(),
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            final data = snapshot.data;
+            return ListView.separated(
+              separatorBuilder: (context, index) => const VerticalGap10(),
+              itemCount: data!.length,
+              itemBuilder: (context, index) {
+                return Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    color: secondaryColor,
+                  ),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 16,
+                    vertical: 8,
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Row(
+                        children: [
+                          Stack(
+                            children: [
+                              Container(
+                                width: 60,
+                                height: 60,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(40),
+                                  color: data[index].status == true
+                                      ? Colors.green
+                                      : Colors.red,
+                                ),
+                                child: Icon(
+                                  data[index].status == false
+                                      ? Icons.arrow_upward_rounded
+                                      : Icons.arrow_downward_rounded,
+                                  color: textColor,
+                                  size: 40,
+                                ),
                               ),
-                              child: Icon(
+                            ],
+                          ),
+                          const HorizontalGap20(),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
                                 data[index].status == false
-                                    ? Icons.arrow_upward_rounded
-                                    : Icons.arrow_downward_rounded,
-                                color: textColor,
-                                size: 40,
+                                    ? '- \$${data[index].totalMoney}'
+                                    : '+ \$${data[index].totalMoney}',
+                                style: poppinsH3.copyWith(
+                                  color: data[index].status == false
+                                      ? Colors.red
+                                      : Colors.green,
+                                ),
                               ),
-                            ),
-                          ],
-                        ),
-                        const HorizontalGap20(),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              data[index].status == false
-                                  ? '- \$${data[index].totalMoney}'
-                                  : '+ \$${data[index].totalMoney}',
-                              style: poppinsH3.copyWith(
-                                color: data[index].status == false
-                                    ? Colors.red
-                                    : Colors.green,
+                              Text(
+                                '${data[index].dateTransfer}, ${data[index].timeTransfer}',
+                                style: poppinsCaption.copyWith(
+                                  color: textColor.withOpacity(.75),
+                                ),
                               ),
-                            ),
-                            Text(
-                              '${data[index].dateTransfer}, ${data[index].timeTransfer}',
-                              style: poppinsCaption.copyWith(
-                                color: textColor.withOpacity(.75),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              );
-            },
-          );
-        } else if (snapshot.hasError) {
-          return Text('${snapshot.error}');
-        } else {
-          return const Center(
-            child: CircularProgressIndicator(
-              color: buttonColor,
-            ),
-          );
-        }
-      },
-    ));
+                            ],
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                );
+              },
+            );
+          } else if (snapshot.hasError) {
+            return Text('${snapshot.error}');
+          } else {
+            return const Center(
+              child: CircularProgressIndicator(
+                color: buttonColor,
+              ),
+            );
+          }
+        },
+      ),
+    );
   }
 }
