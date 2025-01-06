@@ -91,7 +91,7 @@
     "name": "Emma Harris",
     "photoURL": "https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg",
     "status": true,
-    "dateTransfer": "24 January 2023",
+    "dateTransfer": "24 January 2022",
     "timeTransfer": "16:00",
     "totalMoney": 130.0
   },
@@ -99,7 +99,7 @@
     "name": "Liam Wilson",
     "photoURL": "https://images.pexels.com/photos/709783/pexels-photo-709783.jpeg",
     "status": false,
-    "dateTransfer": "1 March 2023",
+    "dateTransfer": "1 March 2022",
     "timeTransfer": "9:30",
     "totalMoney": 70.5
   },
