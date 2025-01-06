@@ -4,6 +4,7 @@ import 'package:my_finance/data/model/transaction_model.dart';
 import 'package:my_finance/data/repository/repository.dart';
 import 'package:my_finance/screens/widgets/dynamic_F_A_B.dart';
 import 'package:my_finance/screens/features/data_master/data_master_screen.dart';
+import 'package:my_finance/screens/widgets/header_title.dart';
 import 'package:my_finance/utils/color.dart';
 import 'package:my_finance/utils/formatters.dart';
 import 'package:my_finance/utils/typography.dart';
@@ -32,7 +33,9 @@ class _HistoryScreenState extends State<HistoryScreen> {
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
           child: Column(
             children: [
-              headerSection(),
+              HeaderTitle(
+                  icon: Icons.history_edu_rounded,
+                  title: 'Transaction History'),
               const VerticalGap10(),
               transactionSection(),
             ],
@@ -291,20 +294,20 @@ class _HistoryScreenState extends State<HistoryScreen> {
     );
   }
 
-  Row headerSection() {
-    return Row(
-      children: [
-        const Icon(
-          Icons.history_edu_rounded,
-          size: 28,
-          color: textColor,
-        ),
-        const HorizontalGap5(),
-        Text(
-          'Transaction History',
-          style: poppinsH1.copyWith(color: textColor),
-        ),
-      ],
-    );
-  }
+  // Row headerSection() {
+  //   return Row(
+  //     children: [
+  //       const Icon(
+  //         Icons.history_edu_rounded,
+  //         size: 28,
+  //         color: textColor,
+  //       ),
+  //       const HorizontalGap5(),
+  //       Text(
+  //         'Transaction History',
+  //         style: poppinsH1.copyWith(color: textColor),
+  //       ),
+  //     ],
+  //   );
+  // }
 }

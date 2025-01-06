@@ -3,6 +3,7 @@ import 'package:my_finance/common/gap.dart';
 import 'package:my_finance/data/repository/repository.dart';
 import 'package:my_finance/screens/widgets/dynamic_F_A_B.dart';
 import 'package:my_finance/screens/features/data_master/data_master_screen.dart';
+import 'package:my_finance/screens/widgets/header_title.dart';
 import 'package:my_finance/utils/color.dart';
 import 'package:my_finance/utils/typography.dart';
 
@@ -26,7 +27,7 @@ class _IventoryScreenState extends State<IventoryScreen> {
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
           child: Column(
             children: [
-              headerSection(),
+              HeaderTitle(icon: Icons.inventory_2, title: 'Iventory'),
               const VerticalGap10(),
               transactionSection(),
             ],
@@ -126,22 +127,5 @@ class _IventoryScreenState extends State<IventoryScreen> {
         }
       },
     ));
-  }
-
-  Row headerSection() {
-    return Row(
-      children: [
-        const Icon(
-          Icons.inventory_2,
-          size: 28,
-          color: textColor,
-        ),
-        const HorizontalGap5(),
-        Text(
-          'Ivnentory',
-          style: poppinsH1.copyWith(color: textColor),
-        ),
-      ],
-    );
   }
 }
