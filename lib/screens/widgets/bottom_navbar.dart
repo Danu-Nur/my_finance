@@ -93,7 +93,7 @@ class HomeFooter extends StatelessWidget {
         }
 
         return AnimatedBottomNavigationBar(
-          backgroundColor: Colors.pink.withOpacity(0.5),
+          backgroundColor: secondaryColor.withOpacity(0.5),
           icons: iconItems,
           splashColor: buttonColor,
           inactiveColor: textColor,

@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:my_finance/common/gap.dart';
 import 'package:my_finance/screens/features/dashboard/widgets/profile_section.dart';
 import 'package:my_finance/screens/features/dashboard/widgets/balance_section.dart';
-import 'package:my_finance/screens/features/dashboard/widgets/payment_section.dart';
-import 'package:my_finance/screens/features/dashboard/widgets/account_section.dart';
-import 'package:my_finance/screens/features/dashboard/widgets/saving_target_section.dart';
-import 'package:my_finance/screens/features/dashboard/widgets/transaction_section.dart';
+// import 'package:my_finance/screens/features/dashboard/widgets/payment_section.dart';
+// import 'package:my_finance/screens/features/dashboard/widgets/account_section.dart';
+// import 'package:my_finance/screens/features/dashboard/widgets/saving_target_section.dart';
+// import 'package:my_finance/screens/features/dashboard/widgets/transaction_section.dart';
 import 'package:my_finance/screens/features/dashboard/widgets/daily_section.dart';
+import 'package:my_finance/screens/features/dashboard/widgets/monthly_budget_section.dart';
+import 'package:my_finance/screens/features/dashboard/widgets/monthly_balance_section.dart';
 
 class DashboardScreen extends StatefulWidget {
   const DashboardScreen({super.key});
@@ -45,12 +47,14 @@ class _DashboardScreenState extends State<DashboardScreen> {
               profileSection(context),
               const VerticalGap20(),
               BalanceSection(context),
-              // const VerticalGap10(),
+              const VerticalGap10(),
+              MonthlyBalanceSection(context),
               // paymentSection(context),
               const VerticalGap20(),
-              accountSection(context),
-              const VerticalGap20(),
-              savingTargetSection(context),
+              monthlyBudgetSection(context),
+              // accountSection(context),
+              // const VerticalGap20(),
+              // savingTargetSection(context),
               const VerticalGap20(),
               DailySection(),
               // transactionSection(context),
