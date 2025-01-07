@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_finance/blocs/navbar/navbar_bloc.dart';
 import 'package:my_finance/blocs/navbar/navbar_event.dart';
 import 'package:my_finance/common/gap.dart';
+import 'package:my_finance/screens/widgets/header_title.dart';
 import 'package:my_finance/utils/color.dart';
 import 'package:my_finance/utils/typography.dart';
 import 'package:my_finance/common/menu.dart';
@@ -27,7 +28,8 @@ class _DataMasterScreenState extends State<DataMasterScreen> {
           child: Column(
             children: [
               const VerticalGap10(),
-              headerSection(),
+              HeaderTitle(
+                  title: 'Data Master & Setting', icon: Icons.storage_sharp),
               const VerticalGap20(),
               Expanded(
                 child: ListView.separated(
@@ -105,23 +107,6 @@ class _DataMasterScreenState extends State<DataMasterScreen> {
           ),
         ),
       ),
-    );
-  }
-
-  Row headerSection() {
-    return Row(
-      children: [
-        const Icon(
-          Icons.storage_sharp,
-          size: 26,
-          color: textColor,
-        ),
-        const HorizontalGap5(),
-        Text(
-          'Data Master & Settings',
-          style: poppinsH1.copyWith(color: textColor),
-        ),
-      ],
     );
   }
 }

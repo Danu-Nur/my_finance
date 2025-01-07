@@ -3,6 +3,7 @@ import 'package:my_finance/common/function/card_number_gap.dart';
 import 'package:my_finance/common/gap.dart';
 import 'package:my_finance/common/static.dart';
 import 'package:my_finance/data/repository/repository.dart';
+import 'package:my_finance/screens/widgets/header_title.dart';
 import 'package:my_finance/utils/color.dart';
 import 'package:my_finance/utils/typography.dart';
 
@@ -35,15 +36,19 @@ class _BudgetScreenState extends State<BudgetScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        body: SizedBox(
+        body: Container(
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height,
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+          decoration: const BoxDecoration(
+            color: primaryColor,
+          ),
           child: SingleChildScrollView(
             physics: const NeverScrollableScrollPhysics(),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                headerSection(),
+                HeaderTitle(title: 'My Budgets', icon: Icons.wallet_rounded),
                 const VerticalGap10(),
                 cardListSection(context),
                 const VerticalGap10(),
@@ -59,10 +64,10 @@ class _BudgetScreenState extends State<BudgetScreen> {
   }
 
   Widget pocketSection(BuildContext context) {
-    return Container(
+    return SizedBox(
       width: MediaQuery.of(context).size.width,
       height: MediaQuery.of(context).size.height / 2,
-      padding: const EdgeInsets.symmetric(horizontal: 16),
+      // padding: const EdgeInsets.symmetric(horizontal: 16),
       child: FutureBuilder(
         future: Repository().getPocket(),
         builder: (context, snapshot) {
@@ -190,9 +195,9 @@ class _BudgetScreenState extends State<BudgetScreen> {
   }
 
   Widget balanceSection(BuildContext context) {
-    return Container(
+    return SizedBox(
       width: MediaQuery.of(context).size.width,
-      padding: const EdgeInsets.symmetric(horizontal: 16),
+      // padding: const EdgeInsets.symmetric(horizontal: 16),
       child: Container(
         width: MediaQuery.of(context).size.width,
         decoration: BoxDecoration(
@@ -249,7 +254,7 @@ class _BudgetScreenState extends State<BudgetScreen> {
           }
 
           return ListView.separated(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
+            // padding: const EdgeInsets.symmetric(horizontal: 16),
             scrollDirection: Axis.horizontal,
             separatorBuilder: (context, index) => const HorizontalGap10(),
             itemCount: snapshot.data!.length,
@@ -439,26 +444,6 @@ class _BudgetScreenState extends State<BudgetScreen> {
         ),
         const VerticalGap5(),
       ],
-    );
-  }
-
-  Container headerSection() {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-      child: Row(
-        children: [
-          const Icon(
-            Icons.wallet_rounded,
-            size: 28,
-            color: textColor,
-          ),
-          const HorizontalGap5(),
-          Text(
-            'My Budgets',
-            style: poppinsH1.copyWith(color: textColor),
-          ),
-        ],
-      ),
     );
   }
 }
