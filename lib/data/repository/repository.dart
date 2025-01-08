@@ -1,7 +1,9 @@
 import 'dart:convert';
 
 import 'package:flutter/services.dart';
+import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
+import 'package:intl/date_symbol_data_local.dart';
 import 'package:my_finance/data/model/credit_card_model.dart';
 import 'package:my_finance/data/model/pocket_model.dart';
 import 'package:my_finance/data/model/saving_target_model.dart';
@@ -73,49 +75,56 @@ class Repository {
 
   Future<Map<String, Map<String, List<TransactionModel>>>>
       getGroupTransactionsByYearAndMonth() async {
+    // Inisialisasi locale untuk bahasa Indonesia
+    await initializeDateFormatting('id_ID', null);
+
     // Fetch transactions from the repository
     final transactions = await Repository().getTransaction();
 
-    // Outer map: Year -> Inner map
-    // Inner map: Month -> List of transactions
+    // Map untuk menyimpan data transaksi berdasarkan tahun dan bulan
     Map<String, Map<String, List<TransactionModel>>> groupedData = {};
 
     for (var transaction in transactions) {
-      // Extract year and month from `dateTransfer`
-      DateTime parsedDate =
-          DateFormat('d MMMM yyyy').parse(transaction.dateTransfer);
-      String year = parsedDate.year.toString(); // Extract the year
-      String month =
-          DateFormat('MMMM').format(parsedDate); // Extract the month as text
+      try {
+        // Parsing tanggal dari dateTransfer (dalam format d MMMM yyyy)
+        DateTime parsedDate =
+            DateFormat('d MMMM yyyy').parse(transaction.dateTransfer);
 
-      // Initialize the year group if not present
-      groupedData.putIfAbsent(year, () => {});
+        // Mendapatkan tahun dan bulan dari tanggal yang diparsing
+        String year = parsedDate.year.toString(); // Tahun
+        String month =
+            DateFormat('MMMM').format(parsedDate); // Nama bulan
 
-      // Initialize the month group within the year if not present
-      groupedData[year]!.putIfAbsent(month, () => []);
+        // Inisialisasi jika belum ada grup untuk tahun dan bulan
+        groupedData.putIfAbsent(year, () => {});
+        groupedData[year]!.putIfAbsent(month, () => []);
 
-      // Add the transaction to the appropriate year and month group
-      groupedData[year]![month]!.add(transaction);
+        // Menambahkan transaksi ke grup
+        groupedData[year]![month]!.add(transaction);
+      } catch (e) {
+        print('Error parsing date: ${transaction.dateTransfer}, Error: $e');
+      }
     }
 
-    // Sort years in descending order
+    // Mengurutkan tahun secara menurun
     final sortedYearKeys = groupedData.keys.toList()
       ..sort((a, b) => int.parse(b).compareTo(int.parse(a)));
 
-    // Sort months in descending order within each year
-    Map<String, Map<String, List<TransactionModel>>> sortedGroupedData = {
-      for (var year in sortedYearKeys)
-        year: {
-          for (var month in groupedData[year]!.keys.toList()
-            ..sort((a, b) {
-              final monthA = DateFormat('MMMM').parse(a);
-              final monthB = DateFormat('MMMM').parse(b);
-              return monthB.month
-                  .compareTo(monthA.month); // Descending by month number
-            }))
-            month: groupedData[year]![month]!,
-        }
-    };
+    // Mengurutkan bulan secara menurun (dalam setiap tahun)
+    Map<String, Map<String, List<TransactionModel>>> sortedGroupedData = {};
+    for (var year in sortedYearKeys) {
+      final monthKeys = groupedData[year]!.keys.toList()
+        ..sort((a, b) {
+          final monthA = DateFormat('MMMM').parse(a);
+          final monthB = DateFormat('MMMM').parse(b);
+          return monthB.month
+              .compareTo(monthA.month); // Descending by month number
+        });
+
+      sortedGroupedData[year] = {
+        for (var month in monthKeys) month: groupedData[year]![month]!,
+      };
+    }
 
     return sortedGroupedData;
   }

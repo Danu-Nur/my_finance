@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:my_finance/common/gap.dart';
 import 'package:my_finance/data/model/transaction_model.dart';
 import 'package:my_finance/data/repository/repository.dart';
@@ -131,67 +132,20 @@ class _HistoryScreenState extends State<HistoryScreen> {
                                           mainAxisAlignment:
                                               MainAxisAlignment.spaceBetween,
                                           children: [
-                                            Container(
-                                              width: 20,
-                                              height: 20,
-                                              decoration: BoxDecoration(
-                                                borderRadius:
-                                                    BorderRadius.circular(40),
-                                                color: Colors.green,
-                                              ),
-                                              child: Icon(
-                                                Icons.arrow_upward_rounded,
-                                                color: textColor,
-                                                size: 16,
-                                              ),
-                                            ),
-                                            const HorizontalGap5(),
-                                            Text(
-                                              rupiahFormatter.format(
-                                                  transactions.fold<double>(0,
-                                                      (previousValue, element) {
-                                                // Only add totalMoney if the status is true
-                                                return element.status
-                                                    ? previousValue +
-                                                        element.totalMoney
-                                                    : previousValue;
-                                              })),
-                                              style: poppinsH5.copyWith(
-                                                  color: textColor),
+                                            _buildTransactionSummary(
+                                              transactions,
+                                              true, // Income
                                             ),
                                           ],
                                         ),
-                                        const VerticalGap10(),
+                                        const VerticalGap5(),
                                         Row(
                                           mainAxisAlignment:
                                               MainAxisAlignment.start,
                                           children: [
-                                            Container(
-                                              width: 20,
-                                              height: 20,
-                                              decoration: BoxDecoration(
-                                                borderRadius:
-                                                    BorderRadius.circular(40),
-                                                color: Colors.red,
-                                              ),
-                                              child: Icon(
-                                                Icons.arrow_downward,
-                                                color: textColor,
-                                                size: 16,
-                                              ),
-                                            ),
-                                            const HorizontalGap5(),
-                                            Text(
-                                              rupiahFormatter.format(
-                                                  transactions.fold<double>(0,
-                                                      (previousValue, element) {
-                                                return !element.status
-                                                    ? previousValue +
-                                                        element.totalMoney
-                                                    : previousValue;
-                                              })),
-                                              style: poppinsH5.copyWith(
-                                                  color: textColor),
+                                            _buildTransactionSummary(
+                                              transactions,
+                                              false, // Expense
                                             ),
                                           ],
                                         ),
@@ -237,14 +191,14 @@ class _HistoryScreenState extends State<HistoryScreen> {
                                                     children: [
                                                       Text(
                                                         transaction.name,
-                                                        style: poppinsBody1
+                                                        style: poppinsBody2
                                                             .copyWith(
                                                           color: textColor
                                                               .withOpacity(.75),
                                                         ),
                                                       ),
                                                       Text(
-                                                        '${transaction.dateTransfer}, ${transaction.timeTransfer}',
+                                                        '${_formatDateTransfer(transaction.dateTransfer)}, ${transaction.timeTransfer}',
                                                         style: poppinsCaption
                                                             .copyWith(
                                                           color: textColor
@@ -294,20 +248,50 @@ class _HistoryScreenState extends State<HistoryScreen> {
     );
   }
 
-  // Row headerSection() {
-  //   return Row(
-  //     children: [
-  //       const Icon(
-  //         Icons.history_edu_rounded,
-  //         size: 28,
-  //         color: textColor,
-  //       ),
-  //       const HorizontalGap5(),
-  //       Text(
-  //         'Transaction History',
-  //         style: poppinsH1.copyWith(color: textColor),
-  //       ),
-  //     ],
-  //   );
-  // }
+// Helper method to format `dateTransfer` using DateFormat('dddd')
+  String _formatDateTransfer(String dateTransfer) {
+    try {
+      final parsedDate = DateFormat('d MMMM yyyy').parse(dateTransfer);
+      return DateFormat('dd EEEE').format(parsedDate);
+    } catch (e) {
+      return 'Invalid Date';
+    }
+  }
+
+// Helper widget for transaction summary
+  Widget _buildTransactionSummary(
+      List<TransactionModel> transactions, bool isIncome) {
+    final color = isIncome ? Colors.green : Colors.red;
+    final icon =
+        isIncome ? Icons.arrow_upward_rounded : Icons.arrow_downward_rounded;
+
+    final totalAmount = transactions.fold<double>(
+      0,
+      (previousValue, transaction) {
+        final isStatusTrue = transaction.status == true;
+        return isIncome == isStatusTrue
+            ? previousValue + transaction.totalMoney
+            : previousValue;
+      },
+    );
+
+    return Row(
+      children: [
+        Container(
+          width: 17,
+          height: 17,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(40),
+            color: color,
+          ),
+          child: Icon(icon, color: textColor, size: 15),
+        ),
+        const HorizontalGap5(),
+        Text(
+          rupiahFormatter.format(totalAmount),
+          style: poppinsH5.copyWith(color: textColor),
+        ),
+      ],
+    );
+  }
 }
