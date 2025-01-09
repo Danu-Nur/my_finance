@@ -5,6 +5,7 @@ import 'package:my_finance/common/static.dart';
 import 'package:my_finance/data/repository/repository.dart';
 import 'package:my_finance/screens/widgets/header_title.dart';
 import 'package:my_finance/utils/color.dart';
+import 'package:my_finance/utils/formatters.dart';
 import 'package:my_finance/utils/typography.dart';
 
 class BudgetScreen extends StatefulWidget {
@@ -43,21 +44,22 @@ class _BudgetScreenState extends State<BudgetScreen> {
           decoration: const BoxDecoration(
             color: primaryColor,
           ),
-          child: SingleChildScrollView(
-            physics: const NeverScrollableScrollPhysics(),
+          // child: SingleChildScrollView(
+            // physics: const NeverScrollableScrollPhysics(),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                HeaderTitle(title: 'My Budgets', icon: Icons.wallet_rounded),
-                const VerticalGap10(),
-                cardListSection(context),
+                HeaderTitle(title: 'My Accounts', icon: Icons.wallet_rounded),
+                // const VerticalGap10(),
+                // cardListSection(context),
                 const VerticalGap10(),
                 balanceSection(context),
                 const VerticalGap10(),
-                pocketSection(context),
+                Expanded(child: pocketSection(context)),
+                // pocketSection(context),
               ],
             ),
-          ),
+          // ),
         ),
       ),
     );
@@ -66,7 +68,7 @@ class _BudgetScreenState extends State<BudgetScreen> {
   Widget pocketSection(BuildContext context) {
     return SizedBox(
       width: MediaQuery.of(context).size.width,
-      height: MediaQuery.of(context).size.height / 2,
+      // height: MediaQuery.of(context).size.height / 2,
       // padding: const EdgeInsets.symmetric(horizontal: 16),
       child: FutureBuilder(
         future: Repository().getPocket(),
@@ -160,8 +162,8 @@ class _BudgetScreenState extends State<BudgetScreen> {
                               ),
                             ),
                             Text(
-                              '\$ ${data.totalMoney}',
-                              style: poppinsH2.copyWith(
+                              rupiahFormatter.format(data.totalMoney * 1000000),
+                              style: poppinsH6.copyWith(
                                 color:
                                     data.typePocket == 3 || data.typePocket == 2
                                         ? Colors.white
@@ -202,7 +204,7 @@ class _BudgetScreenState extends State<BudgetScreen> {
         width: MediaQuery.of(context).size.width,
         decoration: BoxDecoration(
           color: secondaryColor,
-          borderRadius: BorderRadius.circular(16),
+          borderRadius: BorderRadius.circular(10),
         ),
         padding: const EdgeInsets.symmetric(
           horizontal: 16,
@@ -219,8 +221,8 @@ class _BudgetScreenState extends State<BudgetScreen> {
             ),
             const VerticalGap5(),
             Text(
-              '\$ 590.00',
-              style: poppinsH1.copyWith(color: buttonColor),
+              rupiahFormatter.format(590000000),
+              style: poppinsH5.copyWith(color: buttonColor),
             ),
           ],
         ),
