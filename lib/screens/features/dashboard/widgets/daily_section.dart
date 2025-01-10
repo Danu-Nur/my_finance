@@ -132,7 +132,7 @@ class DailySectionState extends State<DailySection> {
     }
 
     return SideTitleWidget(
-      axisSide: meta.axisSide,
+      meta: meta,
       child: text,
     );
   }

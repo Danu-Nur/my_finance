@@ -57,10 +57,10 @@ class HomeBody extends StatelessWidget {
         }
 
         List<Widget> pages = [
+          const IventoryScreen(),
           DashboardScreen(),
           const BudgetScreen(),
           const HistoryScreen(),
-          const IventoryScreen(),
           // const SettingScreen(),
           const DataMasterScreen(),
         ];

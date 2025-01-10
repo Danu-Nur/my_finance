@@ -35,7 +35,7 @@ class _IventoryScreenState extends State<IventoryScreen> {
         ),
         floatingActionButton: DynamicFAB(
           addDataPage: DataMasterScreen(), // Halaman tujuan
-          fabColor: fabColor, // Warna dinamis
+          fabColor: fabColor.withOpacity(.4), // Warna dinamis
         ),
       ),
     );
@@ -52,27 +52,24 @@ class _IventoryScreenState extends State<IventoryScreen> {
               separatorBuilder: (context, index) => const VerticalGap10(),
               itemCount: data!.length,
               itemBuilder: (context, index) {
-                return Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    color: secondaryColor,
-                  ),
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 16,
-                    vertical: 8,
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Row(
+                return Column(
+                  children: [
+                    Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+                      decoration: BoxDecoration(
+                        color: primaryColor,
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Stack(
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Container(
                                 width: 60,
                                 height: 60,
                                 decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(40),
                                   color: data[index].status == true
                                       ? Colors.green
                                       : Colors.red,
@@ -87,9 +84,10 @@ class _IventoryScreenState extends State<IventoryScreen> {
                               ),
                             ],
                           ),
-                          const HorizontalGap20(),
+                          // const HorizontalGap20(),
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Text(
                                 data[index].status == false
@@ -109,10 +107,66 @@ class _IventoryScreenState extends State<IventoryScreen> {
                               ),
                             ],
                           ),
+                          const HorizontalGap20(),
+                          const HorizontalGap20(),
+                          Row(
+                            children: [
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    '9',
+                                    style: poppinsH1.copyWith(
+                                      color: textColor.withOpacity(.75),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              const HorizontalGap20(),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.end,
+                                children: [
+                                  SizedBox(
+                                    width: 27,
+                                    height: 27,
+                                    child: Icon(
+                                      Icons.add,
+                                      color: textColor,
+                                      size: 25,
+                                    ),
+                                  ),
+                                  const VerticalGap5(),
+                                  Container(
+                                    width: 27,
+                                    height: 2,
+                                    color: secondaryColor,
+                                  ),
+                                  const VerticalGap5(),
+                                  SizedBox(
+                                    width: 27,
+                                    height: 27,
+                                    child: Icon(
+                                      Icons.remove,
+                                      color: textColor,
+                                      size: 25,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                          // const HorizontalGap10(),
                         ],
                       ),
-                    ],
-                  ),
+                    ),
+                    const VerticalGap10(),
+                    Container(
+                      width: MediaQuery.of(context).size.width,
+                      height: 2,
+                      color: secondaryColor,
+                    )
+                  ],
                 );
               },
             );
